@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: errorTest
+  name: error-test
   labels:
     name: errors
     type: all
