@@ -1,0 +1,11 @@
+apiVersoin: v1
+kind: Pod
+metadata:
+  name: errorTest
+  labels:
+    name: errors
+    type: all
+spec:
+  containers:
+  - name: comeon-matcha
+    image: comeon-matcha
