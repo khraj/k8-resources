@@ -7,5 +7,8 @@ metadata:
     type: all
 spec:
   containers:
-  - name: comeon-matcha
-    image: comeon-matcha
+  # - name: comeon-matcha    this will leads to imageBackPullOff because the image is not exists
+  #   image: comeon-matcha
+  - name: almalinux
+    image: almalinux:9  #this will give crashLoopBackOff because there is nothing to start the container
+  
