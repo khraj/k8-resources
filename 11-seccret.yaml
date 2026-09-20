@@ -4,6 +4,6 @@ metadata:
   name: pod-secret
 type: Opaque
 #Data should be encoded
-date:
+data:
   username: "a3Jpc2huYQo="
   password: YWRtaW4xMjMK
