@@ -9,4 +9,4 @@ spec:
   ports:
   - protocol: TCP
     port: 80 # service port
-    targerPort: 80   #container port
+    targetPort: 80   #container port
