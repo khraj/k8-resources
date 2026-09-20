@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-demo
+spec:
+  container:
+  - name: environment
+    image: nginx
+    env:
+    - name: environment
+      value: development
+    - name: teacher
+      value: krishna
