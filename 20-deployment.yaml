@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dp-demo
+  labels:
+    purpose: demo
+    environment: dev
+    creator: krishna
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      purpose: demo
+      environment: dev
+      creator: krishna
+  template:
+    metadata:
+      labels:
+        purpose: demo
+        environment: dev
+        creator: krishna
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
