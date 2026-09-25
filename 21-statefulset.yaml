@@ -1,0 +1,86 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  name: stateful-demo
+  labels:
+    purpose: demo
+    teacher: krishna
+    duration: 1-hour
+spec:
+  replicas: 2
+
+--- 
+#Headless Service as clusterIP is given as None
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-headless
+  labels:
+    app: nginx
+    purpose: stateful-demo
+spec:
+  ports:
+  - port: 80
+    name: web
+  clusterIP: None
+  selector:
+    app: nginx
+    purpose: stateful-demo
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+    purpose: stateful-demo
+spec:
+  ports:
+  - port: 80
+    name: web
+  selector:
+    app: nginx
+    purpose: stateful-demo
+
+---
+
+apiVersion: apps/v1
+kind: Statefulset
+metadata:
+  name: nginx
+spec:
+  selector:
+    matchLabels:
+      app: nginx
+      purpose: stateful-demo
+  serviceName: "nginx-headless" # this should be headless service name
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx
+        purpose: stateful-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMount:
+        - name: www
+          mountPath: /usr/share/nginx/html
+    # PVC 
+    volumeClaimTemplate:
+    - metadata:
+        name
+      spec:
+        accessMode: ["ReadWriteOnce"]
+        storageClassName: ""
+        recources:
+          requests:
+            storage: 1Gi
+
+  
