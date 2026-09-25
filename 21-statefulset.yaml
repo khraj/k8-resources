@@ -1,16 +1,4 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata: 
-  name: stateful-demo
-  labels:
-    purpose: demo
-    teacher: krishna
-    duration: 1-hour
-spec:
-  replicas: 2
-
---- 
-#Headless Service as clusterIP is given as None
+ #Headless Service as clusterIP is given as None
 apiVersion: v1
 kind: Service
 metadata:
@@ -47,7 +35,7 @@ spec:
 ---
 
 apiVersion: apps/v1
-kind: Statefulset
+kind: StatefulSet
 metadata:
   name: nginx
 spec:
@@ -69,17 +57,17 @@ spec:
         ports:
         - containerPort: 80
           name: web
-        volumeMount:
+        volumeMounts:
         - name: www
           mountPath: /usr/share/nginx/html
     # PVC 
-    volumeClaimTemplate:
+    volumeClaimTemplates:
     - metadata:
-        name
+        name: www
       spec:
-        accessMode: ["ReadWriteOnce"]
-        storageClassName: ""
-        recources:
+        accessModes: ["ReadWriteOnce"]
+        storageClassName: "gp2"
+        resources:
           requests:
             storage: 1Gi
 
